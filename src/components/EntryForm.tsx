@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container,Grid,Button, TextField,Typography } from '@material-ui/core';
+import { Container,Grid,Button, TextField, Typography } from '@material-ui/core';
 import '../App.css';
 
 
@@ -17,6 +17,11 @@ state = {
     confirmPasswordError:"",
     educationError: "",
     institutionError: "",
+    fullNameData: "",
+    emailData: "",
+    passwordData: "",
+    educationData: "",
+    institutionData: "",
 };
 change = (e:any) => {
     this.setState({[e.target.name]: e.target.value});
@@ -61,7 +66,7 @@ validate = ()=> {
         errors.confirmPasswordError = "This field is required";
     }
     if (typeof this.state.password !== "undefined" && typeof this.state.confirmPassword !== "undefined") {
-        if (this.state.password != this.state.confirmPassword) {
+        if (this.state.password !== this.state.confirmPassword) {
           isError = true;
           errors.passwordError = "Password don't match";
           errors.confirmPasswordError = "Password don't match"
@@ -81,16 +86,19 @@ validate = ()=> {
         ...errors
       });
     return isError;
-    // if (!this.state.fullName){
-    //  const fullNameError = "This field is required"
-    // }
   }
 handleSubmit = (e: any)=>{
     e.preventDefault();
     const err = this.validate();
+    console.log(this.state);
   if (!err){
       this.setState({
-        fullName: "",
+        fullNameData: this.state.fullName,
+        emailData: this.state.email,
+        passwordData: this.state.password,
+        educationData: this.state.education,
+        institutionData: this.state.institution,
+        fullName : "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -143,7 +151,21 @@ handleSubmit = (e: any)=>{
                 </div>
                 </Grid>
          </Grid>
+         <Grid item xs={12} sm={8} className="data" >
+             <div>Full Name: {this.state.fullNameData} </div>
+             <br/>
+             <div>Email: {this.state.emailData}</div>
+             <br/>
+             <div>Password: {this.state.passwordData}</div>
+             <br/>
+             <div>Education: {this.state.educationData}</div>
+             <br/>
+             <div>Institution: {this.state.institutionData}</div>
+             <br/>
+         </Grid>
+
                 </Container>
+                
             </React.Fragment>
         );
     }
